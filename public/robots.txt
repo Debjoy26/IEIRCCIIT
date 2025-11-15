@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ie-i-scrcciit.vercel.app/sitemap.xml
