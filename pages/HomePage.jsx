@@ -146,6 +146,7 @@ const HomePage = () => {
   };
 
   return (
+    <meta name="google-site-verification" content="3ico744BqtzNWSHsQl0Ffjj-fB8av_6haio0C8aAQyk" />
     <div className="space-y-28 animate-fade-in-up">
       {/* Hero Section */}
       <section className="relative text-center py-20 bg-gradient-to-br from-blue-800/20 to-cyan-800/80 backdrop-blur-sm rounded-lg shadow-2xl overflow-hidden">
