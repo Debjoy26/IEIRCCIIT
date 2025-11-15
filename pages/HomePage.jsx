@@ -350,7 +350,7 @@ const HomePage = () => {
                   rel="noopener noreferrer"
                   className="inline-block bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold py-3 px-8 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
                 >
-                  Learn more about IEI India
+                  Learn more about IEI Org.
                 </a>
               </div>
             </div>
