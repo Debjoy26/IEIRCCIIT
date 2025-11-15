@@ -25,44 +25,102 @@ const HomePage = () => {
   const deptlogourl = fallbackImages.logo;
   const deptpicurl = fallbackImages.dept;
 
+  // SEO: Update document title and meta tags
+  useEffect(() => {
+    // Update page title
+    document.title = "IEI Student Chapter RCCIIT | Institution of Engineers India | IT Department | Engineering College Kolkata";
+    
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.content = "Official IEI Student Chapter at RCCIIT Kolkata - Department of Information Technology. Join for engineering workshops, project funding, technical events, and professional development.";
+
+    // Add canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.rel = "canonical";
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.href = "https://ie-i-scrcciit.vercel.app/";
+
+    // Add structured data for SEO
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IEI Student Chapter RCCIIT",
+      "alternateName": "Institution of Engineers India Student Chapter RCCIIT",
+      "url": "https://ie-i-scrcciit.vercel.app/",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Institution_of_Engineers_%28India%29_Logo.svg/375px-Institution_of_Engineers_%28India%29_Logo.svg.png",
+      "description": "Official Student Chapter of The Institution of Engineers (India) at RCC Institute of Information Technology, Kolkata. Engineering student community for technical workshops, projects, and professional development.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "RCC Institute of Information Technology, Canal South Road, Beliaghata",
+        "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
+        "postalCode": "700015",
+        "addressCountry": "IN"
+      },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "The Institution of Engineers (India)"
+      }
+    };
+
+    // Remove existing structured data
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Add new structured data
+    const script = document.createElement('script');
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    // Cleanup function
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     fetchUpcomingEvents();
   }, []);
 
   const fetchUpcomingEvents = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(`${API_BASE_URL}/api/events/?past=false`);
+  try {
+    setLoading(true);
+    
+    // Fetch all events (same as EventsPage)
+    const response = await fetch(`${API_BASE_URL}/api/events/`);
+    
+    if (response.ok) {
+      const eventsData = await response.json();
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const events = await response.json();
-      setUpcomingEvents(events.slice(0, 3));
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      setError('Failed to load events. Please try again later.');
-      // Set demo events for UI purposes
-      setUpcomingEvents([
-        {
-          id: 1,
-          title: "Tech Workshop on AI",
-          date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          event_type: "Workshop"
-        },
-        {
-          id: 2,
-          title: "Annual Coding Competition",
-          date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-          event_type: "Competition"
-        }
-      ]);
-    } finally {
-      setLoading(false);
+      // Use the exact same filtering logic as EventsPage for ongoing events
+      const now = new Date();
+      const ongoing = eventsData.filter(event => {
+        if (!event.date) return false;
+        const eventDate = new Date(event.date);
+        return eventDate >= now;
+      });
+
+      setUpcomingEvents(ongoing.slice(0, 3)); // Show only first 3 ongoing/upcoming events
     }
-  };
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Format date function with better error handling
   const formatDate = (dateString) => {
@@ -96,7 +154,7 @@ const HomePage = () => {
           <div className="my-6 bg-white p-3 rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300">
             <img
               src="https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Institution_of_Engineers_%28India%29_Logo.svg/375px-Institution_of_Engineers_%28India%29_Logo.svg.png"
-              alt="The Institution of Engineers (India) Logo"
+              alt="The Institution of Engineers India IEI Logo Official - IEI Student Chapter RCCIIT"
               className="h-28 w-auto object-contain"
               onError={handleImageError}
             />
@@ -145,7 +203,7 @@ const HomePage = () => {
           >
             <img 
               src={campusImageUrl} 
-              alt="RCCIIT Campus"
+              alt="RCCIIT Campus Kolkata - RCC Institute of Information Technology Campus View"
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
                 isLogoActive ? 'opacity-0 scale-110 blur-sm' : 'opacity-100 scale-100 blur-0'
               } group-hover:scale-105`}
@@ -153,7 +211,7 @@ const HomePage = () => {
             />
             <img 
               src={logoImageUrl} 
-              alt="RCCIIT Logo"
+              alt="RCCIIT Logo - RCC Institute of Information Technology Official Logo"
               className={`absolute inset-0 w-full h-full object-contain p-8 transition-all duration-700 ease-in-out transform ${
                 isLogoActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
               } bg-white/90`}
@@ -165,7 +223,7 @@ const HomePage = () => {
             >
               <img 
                 src={isLogoActive ? campusImageUrl : logoImageUrl}
-                alt="RCCIIT Thumbnail"
+                alt="Toggle RCCIIT View"
                 className="w-full h-full object-contain transition-all duration-500"
                 onError={handleImageError}
               />
@@ -177,7 +235,6 @@ const HomePage = () => {
       {/* The IT Department Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <div className="grid md:grid-cols gap-16 items-center">
-          
             <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
               The Department of Information Technology
             </h2>
@@ -197,14 +254,114 @@ const HomePage = () => {
                 <div className="text-sm text-gray-400">Successful Alumni</div>
               </div>
             </div>
+        </div>
+      </section>
+
+      {/* About IEI Student Chapter RCCIIT Section */}
+      <section className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <div className="bg-gradient-to-r from-blue-600/10 to-cyan-600/10 rounded-2xl p-12 border border-blue-600/30">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
+              About IEI Student Chapter RCCIIT
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Empowering the next generation of engineers through innovation, collaboration, and professional development
+            </p>
+            <div className="mt-4">
+              <a 
+                href="https://www.ieindia.org/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-blue-400 hover:text-cyan-400 transition-colors duration-300"
+              >
+                <span>Learn more about The Institution of Engineers (India)</span>
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          </div>
           
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-6">Our Mission & Vision</h3>
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="bg-blue-600/20 p-3 rounded-full mr-4">
+                    <span className="text-blue-400 text-xl">🎯</span>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">Our Mission</h4>
+                    <p className="text-gray-300">
+                      To foster engineering excellence among students by providing platforms for technical growth, 
+                      innovation, and professional development through workshops, projects, and industry interactions.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-blue-600/20 p-3 rounded-full mr-4">
+                    <span className="text-blue-400 text-xl">👁️</span>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">Our Vision</h4>
+                    <p className="text-gray-300">
+                      To create a vibrant community of engineering professionals who drive technological innovation 
+                      and contribute meaningfully to society through their technical expertise and leadership.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-blue-600/10 rounded-lg border border-blue-600/20">
+                  <p className="text-gray-300 text-sm">
+                    <strong>About The Institution of Engineers (India):</strong> IEI is the premier professional organization for engineers in India, 
+                    established in 1920. It plays a crucial role in promoting engineering education, research, and practice across the nation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-800/80 p-8 rounded-xl">
+              <h3 className="text-2xl font-semibold text-white mb-6 text-center">Why Join IEI Student Chapter?</h3>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-4">✓</div>
+                  <span className="text-gray-300">Access to exclusive workshops and technical sessions</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-4">✓</div>
+                  <span className="text-gray-300">Project funding and mentorship opportunities</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-4">✓</div>
+                  <span className="text-gray-300">Networking with industry professionals and alumni</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-4">✓</div>
+                  <span className="text-gray-300">Participation in national-level competitions</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-4">✓</div>
+                  <span className="text-gray-300">Professional development and certification programs</span>
+                </div>
+              </div>
+              <div className="text-center mt-6 space-y-3">
+                <a 
+                  href="https://www.ieindia.org/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold py-3 px-8 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
+                >
+                  Learn more about IEI India
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Areas of Focus Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
         <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
-          The vast focus fields where IE(I) Student Chapter creates  uniqueness and difference.
+          IEI Student Chapter Focus and Uniqueness
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
