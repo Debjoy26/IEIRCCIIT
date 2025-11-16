@@ -1,4 +1,4 @@
-,import React from 'react';
+import React from 'react';
 import { IEI_LOGO_IMG } from '../constants';
 
 const SplashScreen = () => {
