@@ -166,6 +166,9 @@ const HomePage = () => {
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
             Student Chapter
           </h1>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+            RCCIIT
+          </h1>
           <p className="max-w-2xl mx-auto text-xl md:text-2xl text-gray-300 mt-4 font-light">
             Fostering Engineering Excellence and Innovation at RCCIIT
           </p>
