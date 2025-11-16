@@ -1,4 +1,4 @@
-import React from 'react';
+,import React from 'react';
 import { IEI_LOGO_IMG } from '../constants';
 
 const SplashScreen = () => {
@@ -14,7 +14,7 @@ const SplashScreen = () => {
           The Institution of Engineers (India) Student Chapter
         </h1>
         <p className="mt-4 text-lg md:text-xl text-slate-300 tracking-wider animate-splash-subtext opacity-0">
-          Presented by the Department of Information Technology
+          Presented by the Department of Information Technology, RCCIIT
         </p>
       </div>
     </div>
