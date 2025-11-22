@@ -239,6 +239,7 @@ const HomePage = () => {
       {/* The IT Department Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <div className="grid md:grid-cols gap-16 items-center">
+          <div>
             <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
               The Department of Information Technology
             </h2>
@@ -258,7 +259,8 @@ const HomePage = () => {
                 <div className="text-sm text-gray-400">Successful Alumni</div>
               </div>
             </div>
-            <div 
+          </div>
+          <div 
             className="relative rounded-2xl shadow-2xl overflow-hidden aspect-video bg-gray-800 group"
             onMouseLeave={() => setIsLogoActive(false)}
           >
