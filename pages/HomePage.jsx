@@ -22,8 +22,8 @@ const HomePage = () => {
   const logoImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Regional_Computer_Centre_Institute_Of_Information_Technology.png";
   
   // Using data URI fallbacks instead of external URLs
-  const deptlogourl = "images/deptlogo.jpg";
-  const deptpicurl = "images/deptpic.jpg";
+  const deptlogourl = "https://github.com/Debjoy26/IEIRCCIIT/blob/6be029a167ad76edb4c4722531be2961e6490fb3/images/deptlogo.jpg";
+  const deptpicurl = "https://github.com/Debjoy26/IEIRCCIIT/blob/6be029a167ad76edb4c4722531be2961e6490fb3/images/deptpic.jpg";
 
   // SEO: Update document title and meta tags
   useEffect(() => {
