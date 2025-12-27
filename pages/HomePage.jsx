@@ -240,27 +240,6 @@ const HomePage = () => {
       {/* The IT Department Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
-              The Department of Information Technology
-            </h2>
-            <p className="text-xl text-blue-400 italic mt-2 mb-6 font-light">
-              "Legacy of Excellence, Vision for Tomorrow."
-            </p>
-            <p className="text-gray-300 text-lg leading-relaxed mb-6">
-              The Information Technology Department of RCCIIT, established in 1999, is one of the institute's oldest departments and continues the legacy of RCC, Calcutta, in delivering quality IT education. It has an excellent record in academics and placements, with alumni excelling in leading MNCs, research, and academia worldwide.
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-blue-600/10 rounded-xl">
-                <div className="text-2xl font-bold text-blue-400">20+</div>
-                <div className="text-sm text-gray-400">Years of Excellence</div>
-              </div>
-              <div className="text-center p-4 bg-blue-600/10 rounded-xl">
-                <div className="text-2xl font-bold text-blue-400">1000+</div>
-                <div className="text-sm text-gray-400">Successful Alumni</div>
-              </div>
-            </div>
-          </div>
           <div 
             className="relative rounded-2xl shadow-2xl overflow-hidden aspect-video bg-gray-800 group"
             onMouseLeave={() => setIsDeptLogoActive(false)}
@@ -293,6 +272,28 @@ const HomePage = () => {
               />
             </div>
           </div>
+          <div>
+            <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
+              The Department of Information Technology
+            </h2>
+            <p className="text-xl text-blue-400 italic mt-2 mb-6 font-light">
+              "Legacy of Excellence, Vision for Tomorrow."
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              The Information Technology Department of RCCIIT, established in 1999, is one of the institute's oldest departments and continues the legacy of RCC, Calcutta, in delivering quality IT education. It has an excellent record in academics and placements, with alumni excelling in leading MNCs, research, and academia worldwide.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center p-4 bg-blue-600/10 rounded-xl">
+                <div className="text-2xl font-bold text-blue-400">20+</div>
+                <div className="text-sm text-gray-400">Years of Excellence</div>
+              </div>
+              <div className="text-center p-4 bg-blue-600/10 rounded-xl">
+                <div className="text-2xl font-bold text-blue-400">1000+</div>
+                <div className="text-sm text-gray-400">Successful Alumni</div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </section>
 
