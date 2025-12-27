@@ -266,7 +266,7 @@ const HomePage = () => {
             onMouseLeave={() => setIsDeptLogoActive(false)}
           >
             <img 
-              src={deptpicurl} 
+              src="/deptpic.jpg" 
               alt="IT Department RCCIIT - Department of Information Technology at RCC Institute of Information Technology"
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
                 isDeptLogoActive ? 'opacity-0 scale-110 blur-sm' : 'opacity-100 scale-100 blur-0'
@@ -274,7 +274,7 @@ const HomePage = () => {
               onError={handleImageError}
             />
             <img 
-              src={deptlogourl} 
+              src="/deptlogo.jpg" 
               alt="IT Department Logo - Department of Information Technology Official Logo"
               className={`absolute inset-0 w-full h-full object-contain p-8 transition-all duration-700 ease-in-out transform ${
                 isDeptLogoActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
@@ -286,7 +286,7 @@ const HomePage = () => {
               onMouseEnter={() => setIsDeptLogoActive(true)}
             >
               <img 
-                src={isDeptLogoActive ? deptpicurl : deptlogourl}
+                src={isDeptLogoActive ? "/deptpic.jpg"  : "/deptlogo.jpg"}
                 alt="Toggle IT Department View"
                 className="w-full h-full object-contain transition-all duration-500"
                 onError={handleImageError}
